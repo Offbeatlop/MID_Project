@@ -5,7 +5,11 @@ In order to desing our application, we have decided to use Java as programming l
 to share our thoughts. 
 
 Trying to decide how to implement our project, we first came up with the idea of having a master node, where to
-upload our files and share what we wanted. It would be the manager among the computers, to 
+upload our files and share what we wanted. It would be the manager among the computers, taking each user's files
+and merging them in a common filesystem, then replicating it to every user's local machine.
+
+After discussing it with the professor, we changed this vision for a decentralized system, where peers directly
+interchange the files.
 
 
 network side, file system
