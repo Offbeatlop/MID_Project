@@ -11,7 +11,24 @@ and merging them in a common filesystem, then replicating it to every user's loc
 After discussing it with the professor, we changed this vision for a decentralized system, where peers directly
 interchange the files.
 
+## Second meeting
 
+We had agreed that all machines would act as peers. This carries the
+problem of synchronizing all files at the same time without a central
+node storing the "real" version of the filesystem.
+
+We have agreed on the following file synchronization process:
+
+1. Each node will inspect its own shared filesystem and return a
+   description of it in JSON format
+2. This JSON will be sent to all the other peers, and JSONs from them
+   will be received.
+3. Each node knowing what its peers have in their filesystems, they
+   will start the operations in order to have the same version of the
+   filesystem: Request the sending of files they don't have, erase
+   those that other machines do not have, etc.
+
+## Notes
 network side, file system
 run the application to discover who our neigbour machines would be on the network (peers).
 then you can 1) have events from your file system (your own machine) and 2) communicate with the other computers
