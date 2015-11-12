@@ -28,6 +28,14 @@ We have agreed on the following file synchronization process:
    filesystem: Request the sending of files they don't have, erase
    those that other machines do not have, etc.
 
+To achieve this, we add the following tasks to the TODO list:
+
+- Implement a program that given a filesystem, returns its
+  description in JSON format.
+- Start studying about how to connect several machines over the
+  network with the RPC/RMI middleware.
+
+
 ## Notes
 network side, file system
 run the application to discover who our neigbour machines would be on the network (peers).
