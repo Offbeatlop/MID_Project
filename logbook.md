@@ -36,6 +36,11 @@ To achieve this, we add the following tasks to the TODO list:
   network with the RPC/RMI middleware.
 
 
+## Third meeting
+- Do not send huge files all at once. Divide it in little chunks of
+data. To be implemented, as RMI does not provide it.
+- Protocol definition: not flooding the network with the same file
+being sent from several machines, have a version control.
 ## Notes
 network side, file system
 run the application to discover who our neigbour machines would be on the network (peers).
