@@ -78,7 +78,6 @@ public class WatchDir {
      */
     void processEvents(Broadcaster broadcaster) {
         for (;;) {
-            // wait for key to be signalled
             WatchKey key;
             try {
                 key = watcher.take();
