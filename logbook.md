@@ -49,6 +49,11 @@ trying to do it locally, with both directories in the same computer.
 problems with the interconection among computers. Able to do 
 it between MACs but unable with Linux.
 
+## Fourth meeting
+
+- Still having problems with the connection. Hazelcast doesn't work with INSA-INVITE or eduroam.
+- Started the web interface. We decided to keep apart the web application and the exchange of files, i.e., when the user is into the application, he does "prepare" the changes. Until he does not press commit nothing actually happens.
+
 
 
 ## Notes
