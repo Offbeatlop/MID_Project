@@ -37,15 +37,31 @@ To achieve this, we add the following tasks to the TODO list:
 
 
 ## Third meeting
+
+- The JSON description of a file system is already implemented, 
+file changes are already detected inside a directory, taking
+also into account the subfolders that may exist inside of it
+(i.e. the algorithm is recursive).
+- Now starting with the exchange of files between folders. Firstly
+trying to do it locally, with both directories in the same computer.
+- Decided to keep always the newest file in case of conflict.
+- A client and a server have been created using RMI, but we have 
+problems with the interconection among computers. Able to do 
+it between MACs but unable with Linux.
+
+
+
+## Notes
 - Do not send huge files all at once. Divide it in little chunks of
 data. To be implemented, as RMI does not provide it.
 - Protocol definition: not flooding the network with the same file
 being sent from several machines, have a version control.
-## Notes
-network side, file system
-run the application to discover who our neigbour machines would be on the network (peers).
+- network side, file system
+- run the application to discover who our neigbour machines would be on the network (peers).
 then you can 1) have events from your file system (your own machine) and 2) communicate with the other computers
 (events you receive from the network) here's a new file, take the path... and you copy it to your computer
 application which listening to the network and the file system.
 if you change in your own machine, everyone has a copy and it gets modified in all the computers.
 coordinate the machines in order to not send the same file several times to a computer.
+
+
