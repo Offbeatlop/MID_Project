@@ -67,9 +67,9 @@ Here we will specify our first approach to the web interface
 functionality:
 
 The web interface will be installed in a server running on only one of
-the nodes. Its objective is for users connecting from
-machines different from the one where its shared folder is, and still
-being able to make changes to the shared filesystem.
+the nodes. Its objective is that users connecting from
+machines different from the one where its shared folder is can still
+be able to make changes to the shared filesystem.
 
 In order to reach that, the node storing the server must initiate the
 filesystem convergence process when an access to the webpage is
