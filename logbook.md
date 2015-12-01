@@ -49,7 +49,34 @@ trying to do it locally, with both directories in the same computer.
 problems with the interconection among computers. Able to do 
 it between MACs but unable with Linux.
 
+## Fourth meeting
 
+We still have problems with the communication among machines. In order
+to avoid losing time on that aspect, we started focusing on the web
+interface functionality. We have, then, three parallel working groups:
+
+- One focused on the filesystem description and the interchanging
+  protocol. Testing is done over local files at the moment
+- Another focused on obtaining the connectivity among computers
+  through RMI.
+- The last one working on the web interface.
+
+### Web interface development
+
+Here we will specify our first approach to the web interface
+functionality:
+
+The web interface will be installed in a server running on only one of
+the nodes. Its objective is for users connecting from
+machines different from the one where its shared folder is, and still
+being able to make changes to the shared filesystem.
+
+In order to reach that, the node storing the server must initiate the
+filesystem convergence process when an access to the webpage is
+required, so as to offer the latest version of the filesystem. Then,
+the user will make changes through the interface and commit those
+changes if he wish. Finally, the node will start a new convergence
+process to store those changes on the shared filesystem.
 
 ## Notes
 - Do not send huge files all at once. Divide it in little chunks of
