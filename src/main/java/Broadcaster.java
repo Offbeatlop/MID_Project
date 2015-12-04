@@ -14,5 +14,7 @@ public class Broadcaster {
         json.put("event", event.kind().name());
         json.put("file",file);
         System.out.println(json);
+
+        //SEND THE SHIT TO NETWORK
     }
 }
