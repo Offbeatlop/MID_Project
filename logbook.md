@@ -78,6 +78,32 @@ the user will make changes through the interface and commit those
 changes if he wish. Finally, the node will start a new convergence
 process to store those changes on the shared filesystem.
 
+## Fifth meeting
+
+The approach we took to the web interface in the last meeting was not
+the one required.
+
+Web application and the filesystem application should run in different
+nodes and communicate between them over the network.
+
+For this communication we are going to use the Spark framework.
+
+### Web interface development
+
+We decided to use Java servlets and JSP as the technologies for
+implementing the web application and Tomcat 8 as the servlet
+container.
+
+When initiated, the web app will request a filesystem node a JSON
+description of the filesystem, and will show it to the user by pages
+dynamically generated using JSP.
+
+Every user action regarding a change in the filesystem will be stored
+in a JSON file describing those changes. When the user commits, this
+JSON will be sent to a filesystem node, which will make the changes on
+its local folder. The rest of peers, which are watching the others'
+shared folders, will initiate the convergence mechanism when the
+changes are detected.
 ## Notes
 - Do not send huge files all at once. Divide it in little chunks of
 data. To be implemented, as RMI does not provide it.
