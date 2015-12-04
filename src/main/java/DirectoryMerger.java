@@ -15,10 +15,6 @@ public class DirectoryMerger {
             public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
                     throws IOException
             {
-                //IF files with same name
-                    //check last modified -- take newest
-                //ELSE
-                    // copy normally
                 Files.copy(file, firstDir, StandardCopyOption.ATOMIC_MOVE);
                 return FileVisitResult.CONTINUE;
             }
