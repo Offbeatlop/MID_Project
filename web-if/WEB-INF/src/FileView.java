@@ -13,6 +13,24 @@ public class FileView extends HttpServlet {
 	// the common filesystem
 	// Creates a JSON object
 	// Passes this JSON object to fileview JSP
-	JsonObject json;
+	
+	JSONObject json = new JSONObject();
+	json.accumulate("/paloma", "file");
+	json.accumulate("/diego", "dir");
+	//ask for jason object
+	String defaultpath;
+        try{
+                HttpSession session = request.getSession(true); //take into consideratino session.invalidate()...
+                //User u = m.checkUser(request.getParameter("email"), request.getParameter("pass"));
+                //get path and add it to jason
+                        session.setAttribute("json",json);
+                        response.sendRedirect("fileview");
+                }else{
+                        response.sendRedirect("error.html");
+                }
+        }catch(NamingException e){
+			e.printStackTrace();
+        }
+    
     }
 }
