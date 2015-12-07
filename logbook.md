@@ -104,6 +104,24 @@ JSON will be sent to a filesystem node, which will make the changes on
 its local folder. The rest of peers, which are watching the others'
 shared folders, will initiate the convergence mechanism when the
 changes are detected.
+
+## Sixth meeting
+
+In this session we came up with a problem our previous approach
+had: The JSON describing the files would be a problem when dealing
+with file additions: A link should be added for those cases,
+filesystem node would have to request the file to the web server,
+etc. These problems, and others that may arise, turns the JSON solution
+into an over-complicated way of working out the problem.
+
+We thought of using simple HTTP requests for that: A GET request for
+deletions and a POST request for additions. We still have to think
+harder on this aspect.
+
+We also decided to change when the web application sends reports
+to the filesystem node: Instead of waiting until the user commits a
+list of changes, as initially conceived, changes will be sent to the
+filesystem node as they are done.
 ## Notes
 - Do not send huge files all at once. Divide it in little chunks of
 data. To be implemented, as RMI does not provide it.
