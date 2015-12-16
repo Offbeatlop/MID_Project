@@ -77,11 +77,11 @@
 
     
     <servlet>
-      <servlet-name>vistaprincipal</servlet-name>
+      <servlet-name>fileview</servlet-name>
       <description>
 	      Muestra la vista principal de la aplicación
       </description>
-      <servlet-class>VistaPrincipal</servlet-class>
+      <servlet-class>FileView</servlet-class>
     </servlet>    
 
     
@@ -159,8 +159,8 @@
     </servlet-mapping>
 
     <servlet-mapping>
-      <servlet-name>vistaprincipal</servlet-name>
-      <url-pattern>/vistaprincipal</url-pattern>
+      <servlet-name>fileview</servlet-name>
+      <url-pattern>/fileview</url-pattern>
     </servlet-mapping>    
    
     
