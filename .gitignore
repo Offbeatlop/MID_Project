@@ -2,3 +2,5 @@
 MID_Project.iml
 target
 testdirectoryForMonitoring/*
+.classpath
+.project
