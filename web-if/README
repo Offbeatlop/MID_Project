@@ -1,0 +1,8 @@
+This directory structure is the one required by Apache Tomcat for the 
+correct functioning of a servlet.
+
+We chose Tomcat as the servlet container because is the one Paloma and 
+Diego know how to use.
+
+The directory web-if must be deployed in the directory webapps of an
+Apache Tomcat installation in order to use it.
