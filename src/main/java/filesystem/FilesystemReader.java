@@ -1,3 +1,5 @@
+package filesystem;
+
 import org.json.simple.JSONObject;
 
 import java.io.File;
@@ -14,17 +16,17 @@ public class FilesystemReader {
     public JSONObject getFileSystemAsJson() throws IOException {
         JSONObject json = new JSONObject();
         File root = new File(fsPath);
-        return readRecursively(root, json);
+        return readIteratively(root, json);
     }
 
-    private JSONObject readRecursively(File current, JSONObject json) {
+    private JSONObject readIteratively(File current, JSONObject json) {
         if (current.isFile()) {
             json.put(fileName(current), "file");
             return json;
         }
         for (File file: current.listFiles()) {
             if (file.isDirectory()) {
-                json.put(fileName(file), readRecursively(file, new JSONObject()));
+                json.put(fileName(file), readIteratively(file, new JSONObject()));
             } else {
                 json.put(fileName(file), "file");
             }
