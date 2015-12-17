@@ -5,15 +5,9 @@
     </head>
     <body>
         <div th:each="file : ${files}">
-            <div th:if="${file.value.equals('file')}">
                 <span th:text="${file.key}"></span>
-                <button>Download</button>
-            </div>
-            <div th:if="!${file.value.equals('file')}">
-                Folder: <span th:text="${file.key}"></span>
-               <!-- <a th:href="@{/filesystem{current=${file.value}}}">Go inside</a> -->
-            </div>
+                <span th:if="${file.value.containsKey('__file')}"> Download </span>
+                <a th:if="!${file.value.containsKey('__file')}" th:href="|/fileview?current=${file.key}|">Go inside</a>
         </div>
-        <!--<p th:text="${files}"></p> -->
     </body>
 </html>

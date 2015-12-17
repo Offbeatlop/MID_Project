@@ -24,13 +24,9 @@ public class RestAPI {
 
     private void createRoutes() {
         Gson gson = new Gson();
-        get("/filesystem/json", (req, res) -> fsReader.fileSystemAsJson(), gson::toJson);
-        delete("/filesystem", (req, res) -> fsWriter.deleteFile(req.body()));
-        post("/filesystem", (req, res) -> fsWriter.postFile(req));
-        get("/filesystem", (req, res) -> fsReader.fileSystemAsHtml());
+        get("/fileview/json", (req, res) -> fsReader.fileSystemAsJson(), gson::toJson);
+        delete("/fileview", (req, res) -> fsWriter.deleteFile(req.body()));
+        post("/fileview", (req, res) -> fsWriter.postFile(req));
+        get("/fileview", (req, res) -> fsReader.fileSystemAsHtml(req));
     }
-}
-
-class Person {
-    String name;
 }
