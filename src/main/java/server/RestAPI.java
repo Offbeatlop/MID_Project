@@ -26,7 +26,11 @@ public class RestAPI {
         Gson gson = new Gson();
         get("/fileview/json", (req, res) -> fsReader.fileSystemAsJson(), gson::toJson);
         delete("/fileview", (req, res) -> fsWriter.deleteFile(req.body()));
-        post("/fileview", (req, res) -> fsWriter.postFile(req));
+        post("/fileview", (req, res) -> {
+            boolean b = fsWriter.postFile(req, res);
+            
+            return b;
+        });
         get("/fileview", (req, res) -> fsReader.fileSystemAsHtml(req));
     }
 }

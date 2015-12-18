@@ -15,7 +15,7 @@ import java.util.Map;
 * */
 public class FilesystemReader {
     private String root = System.getProperty("user.dir");
-    private String fsPath =  root + "/testdirectoryForMonitoring/";
+    private String fsPath =  root + "/src/main/resources/public/filesystem/";
     private ThymeleafTemplateEngine templateEngine;
     private JSONParser parser;
 
@@ -33,22 +33,22 @@ public class FilesystemReader {
     }
 
     private JSONObject readIteratively(String currentRoot, File current, JSONObject json) {
-        if (current.isFile()) {
-            json.put(fileName(current, currentRoot), "file");
-            return json;
-        }
         for (File file: current.listFiles()) {
             if (file.isDirectory()) {
                 String dirName = fileName(file, fsPath);
                 json.put(dirName, readIteratively(currentRoot + fileName(file, currentRoot) + "/", file, new JSONObject()));
             } else {
-                JSONObject fileJson = new JSONObject();
-                fileJson.put("__file", file.toString());
-                json.put(fileName(file, currentRoot), fileJson);
+                String fileName = fileName(file, currentRoot);
+                if (!fileName.equals(".DS_Store")) {
+                    JSONObject fileJson = new JSONObject();
+                    fileJson.put("__file", fileName(file, fsPath));
+                    json.put(fileName, fileJson);
+                }
             }
         }
         return json;
     }
+
     private String fileName(File file, String currentRoot) {
         return file.toString().substring(currentRoot.length());
     }
@@ -62,8 +62,14 @@ public class FilesystemReader {
         }
         JSONObject json = this.fileSystemAsJson(currentRoot);
         Map map = new HashMap();
+        if (currentFile == null) {
+            map.put("current", "");
+        } else {
+            map.put("current", currentFile);
+        }
         map.put("files", json);
-        ModelAndView maw = new ModelAndView(map, "filesystem");
+        System.out.println(map);
+        ModelAndView maw = new ModelAndView(map, "fileview");
         return templateEngine.render(maw);
     }
 

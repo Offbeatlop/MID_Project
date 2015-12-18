@@ -23,7 +23,7 @@ public class FilesystemWriterTest {
     @Test
     public void createFileInvokesPart() throws Exception {
         Part partMock = Mockito.mock(Part.class);
-        fWriter.createFile("asdasd", partMock);
+        //fWriter.createFile("asdasd", partMock);
         Mockito.verify(partMock).write(Mockito.anyString());
     }
 }

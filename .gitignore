@@ -1,6 +1,6 @@
 .idea/
 MID_Project.iml
 target
-testdirectoryForMonitoring/*
+src/main/resources/public/filesystem/*
 .classpath
 .project
