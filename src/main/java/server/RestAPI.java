@@ -14,6 +14,7 @@ public class RestAPI {
     public void start() {
         fsReader = new FilesystemReader();
         fsWriter = new FilesystemWriter();
+        System.out.println(System.getProperty("user.dir"));
         staticFileLocation("/public");
         createRoutes();
     }
@@ -28,9 +29,9 @@ public class RestAPI {
         delete("/fileview", (req, res) -> fsWriter.deleteFile(req.body()));
         post("/fileview", (req, res) -> {
             boolean b = fsWriter.postFile(req, res);
-            
             return b;
         });
-        get("/fileview", (req, res) -> fsReader.fileSystemAsHtml(req));
+        get("/fileview/*", (req, res) -> fsReader.fileSystemAsHtml(req));
+        get("/filesystem/*", (req, res) -> fsReader.downloadFile(req, res));
     }
 }

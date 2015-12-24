@@ -2,14 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Fileview</title>
-        <link rel="stylesheet" type="text/css" href="css/fileview.css" />
+        <link rel="stylesheet" type="text/css" href="/css/fileview.css" />
     </head>
     <body>
         <h1 th:text="|Current: ${current}|" ></h1>
         <div th:each="file : ${files}">
                 <span th:text="${file.key}"></span>
                 <a th:if="${file.value.containsKey('__file')}" th:href="|/filesystem/${file.value.get('__file')}|" th:attr="download=${file.key}" > Download </a>
-                <a th:if="!${file.value.containsKey('__file')}" th:href="|/fileview?current=${file.key}|">Go inside</a>
+                <a th:if="!${file.value.containsKey('__file')}" th:href="|/fileview/${file.key}|">Go inside</a>
         </div>
 
         <div>
@@ -17,13 +17,15 @@
             <form enctype="multipart/form-data" action="/fileview" method="post">
                 <span>New file: </span>
                 <input name="file" type="file" />
-                <input name="location" type="text" style="display:none;" th:attr="value=${current}" />
+                <input name="directories" type="text" style="display:none;" th:attr="value=${current}" />
+                <input name="newDirectory" type="text" style="display:none;" />
                 <input type="submit" value="Submit" />
             </form>
             <!-- The next form is for creating new folders to current folder-->
             <form enctype="multipart/form-data" action="/fileview" method="post">
                 <span>New folder: </span>
-                <input name="location" type="text" />
+                <input name="directories" type="text" style="display:none;" th:attr="value=${current}" />
+                <input name="newDirectory" type="text" />
                 <input type="submit" value="Submit" />
             </form>
         </div>

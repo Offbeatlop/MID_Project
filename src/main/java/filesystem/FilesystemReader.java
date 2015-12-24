@@ -1,12 +1,16 @@
 package filesystem;
 
+import com.google.common.io.ByteStreams;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import spark.ModelAndView;
 import spark.Request;
+import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
-import java.io.File;
+import javax.servlet.ServletOutputStream;
+import java.io.*;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,7 +19,7 @@ import java.util.Map;
 * */
 public class FilesystemReader {
     private String root = System.getProperty("user.dir");
-    private String fsPath =  root + "/src/main/resources/public/filesystem/";
+    private String fsPath =  root + "/src/main/resources/filesystem/";
     private ThymeleafTemplateEngine templateEngine;
     private JSONParser parser;
 
@@ -55,9 +59,8 @@ public class FilesystemReader {
 
     public String fileSystemAsHtml(Request request) {
         String currentRoot = fsPath;
-        String currentFile = customTrim(request.queryParams("current"));
+        String currentFile = customTrim(request.splat());
         if (currentFile != null) {
-            System.out.println(currentFile);
             currentRoot += currentFile + "/";
         }
         JSONObject json = this.fileSystemAsJson(currentRoot);
@@ -68,7 +71,6 @@ public class FilesystemReader {
             map.put("current", currentFile);
         }
         map.put("files", json);
-        System.out.println(map);
         ModelAndView maw = new ModelAndView(map, "fileview");
         return templateEngine.render(maw);
     }
@@ -94,19 +96,40 @@ public class FilesystemReader {
         this.fsPath = fsPath;
     }
 
-    private String customTrim(String s) {
+    private String customTrim(String[] s) {
         if (s == null) {
             return null;
         }
-        if (s.length() == 0) {
-            return s;
+        if (s.length == 0) {
+            return null;
         }
-        if (s.charAt(0) == '/') {
-            s = s.substring(1);
+        String str = s[0];
+        if (str.charAt(0) == '/') {
+            str = str.substring(1);
         }
-        if (s.charAt(s.length() - 1) == '/') {
-            s = s.substring(0, s.length() - 1);
+        if (str.charAt(str.length() - 1) == '/') {
+            str = str.substring(0, str.length() - 1);
         }
-        return s;
+        return str;
+    }
+
+    public Object downloadFile(Request request, Response response) {
+        System.out.println("JOU");
+        try {
+            String path = fsPath + request.splat()[0];
+            File file = new File(path);
+            response.raw().setContentType("application/octet-stream");
+            response.raw().setHeader("Content-Disposition", "attachment; filename=" + file.getName());
+            OutputStream out = response.raw().getOutputStream();
+            InputStream in = new FileInputStream(file);
+            ByteStreams.copy(in, out);
+            out.close();
+            in.close();
+        } catch (IOException e) {
+            System.out.println("FAILED!");
+            e.printStackTrace();
+            return null;
+        }
+        return response.raw();
     }
 }

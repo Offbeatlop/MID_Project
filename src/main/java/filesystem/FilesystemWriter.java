@@ -7,19 +7,16 @@ import spark.Request;
 import spark.Response;
 
 import javax.servlet.MultipartConfigElement;
-import javax.servlet.ServletException;
 import javax.servlet.http.Part;
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class FilesystemWriter {
 
     private JSONParser parser = new JSONParser();
     private String rootPath = System.getProperty("user.dir");
-    private String fileSystemPath = rootPath + "/src/main/resources/public/filesystem/";
+    private String fileSystemPath = rootPath + "/src/main/resources/filesystem/";
 
     public boolean deleteFile(String jsonString) {
         File file = new File(rootPath + getFilePath(jsonString));
@@ -31,20 +28,24 @@ public class FilesystemWriter {
         request.raw().setAttribute("org.eclipse.jetty.multipartConfig", multipartConfigElement);
         try {
             Part file = request.raw().getPart("file");
-            String location = convertStreamToString(request.raw().getPart("location").getInputStream());
-            String newPath = "";
-            if (location.length() > 0) {
-                newPath += location +"/";
+            String newDirectory = convertStreamToString(request.raw().getPart("newDirectory").getInputStream());
+            String directories = convertStreamToString(request.raw().getPart("directories").getInputStream());
+            String newPath = directories + "/";
+            if (directories == null || directories.length() == 0) {
+                newPath = "";
             }
-            System.out.println(newPath);
-            Files.createDirectories(Paths.get(fileSystemPath + newPath));
+            if (newDirectory.length() > 0) {
+                newPath += newDirectory +"/";
+            }
+            String pathToNewStuff = fileSystemPath + newPath;
+            Files.createDirectories(Paths.get(pathToNewStuff));
             if (file != null) {
-                newPath += file.getSubmittedFileName();
-                if(new File(fileSystemPath + newPath).createNewFile()) {
-                    file.write(newPath);
+                String filePath = newPath + file.getSubmittedFileName();
+                if(new File(fileSystemPath + filePath).createNewFile()) {
+                    file.write(filePath);
                 }
             }
-            response.redirect("/fileview?current=" + location);
+            response.redirect("/fileview/" + newPath);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
