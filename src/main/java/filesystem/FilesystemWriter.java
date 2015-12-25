@@ -18,8 +18,19 @@ public class FilesystemWriter {
     private String rootPath = System.getProperty("user.dir");
     private String fileSystemPath = rootPath + "/src/main/resources/filesystem/";
 
-    public boolean deleteFile(String jsonString) {
-        File file = new File(rootPath + getFilePath(jsonString));
+    public boolean deleteFile(Request request, Response response) {
+        String body = request.body();
+        body = body.replace("%2F", "/");
+        String[] parts = body.split("&");
+        String fileName = parts[0].substring(5);
+        String current = parts[1].substring(8);
+        File file = new File(fileSystemPath + fileName);
+        try {
+            response.redirect("/fileview/" + current);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
         return file.delete();
     }
 

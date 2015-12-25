@@ -8,7 +8,16 @@
         <h1 th:text="|Current: ${current}|" ></h1>
         <div th:each="file : ${files}">
                 <span th:text="${file.key}"></span>
-                <a th:if="${file.value.containsKey('__file')}" th:href="|/filesystem/${file.value.get('__file')}|" th:attr="download=${file.key}" > Download </a>
+                <div class="inline" th:if="${file.value.containsKey('__file')}" >
+                    <a th:href="|/filesystem/${file.value.get('__file')}|" th:attr="download=${file.key}" > Download </a>
+                    <!-- Cannot delete resources RESTfully with DELETE method without JavaScript-->
+                    <!-- So let's use POST in this JavaScript-agnostic implementation -->
+                    <form action="/fileview/delete" method="post">
+                        <input name="file" type="text" style="display:none;" th:attr="value=${file.value.get('__file')}" />
+                        <input name="current" type="text" style="display:none;" th:attr="value=${current}" />
+                        <input type="submit" value="Delete" />
+                    </form>
+                </div>
                 <a th:if="!${file.value.containsKey('__file')}" th:href="|/fileview/${file.key}|">Go inside</a>
         </div>
 

@@ -9,3 +9,11 @@ button, a {
     padding-left:2em;
     margin-left:2em;
 }
+
+div.inline {
+    display:inline;
+}
+
+.clearBoth {
+    clear:both;
+}

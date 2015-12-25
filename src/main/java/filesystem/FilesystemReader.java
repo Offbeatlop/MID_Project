@@ -7,10 +7,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
-
-import javax.servlet.ServletOutputStream;
 import java.io.*;
-import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 
