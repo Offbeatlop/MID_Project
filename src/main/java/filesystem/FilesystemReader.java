@@ -111,7 +111,6 @@ public class FilesystemReader {
     }
 
     public Object downloadFile(Request request, Response response) {
-        System.out.println("JOU");
         try {
             String path = fsPath + request.splat()[0];
             File file = new File(path);
