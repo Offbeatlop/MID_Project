@@ -1,6 +1,7 @@
 package filesystem;
 
 import com.google.common.io.ByteStreams;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import spark.ModelAndView;
@@ -8,8 +9,14 @@ import spark.Request;
 import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /*
 * Reads the filesystem as JSON
@@ -124,8 +131,33 @@ public class FilesystemReader {
         } catch (IOException e) {
             System.out.println("FAILED!");
             e.printStackTrace();
-            return null;
+            return false;
         }
         return response.raw();
+    }
+
+    public JSONArray getAllMusic(List<String> musicFileTypes) {
+        try {
+            List<Path> musicFiles = Files.walk(Paths.get(fsPath))
+                    .filter((path) -> path.toFile().isFile())
+                    .filter(
+                            (path) -> musicFileTypes.stream().anyMatch(
+                                    (fileType) -> path.toFile().getName().contains(fileType)
+                            )
+                    ).collect(Collectors.toList());
+            JSONArray musicJson = new JSONArray();
+            musicFiles.stream().forEach((path) -> {
+                File music = path.toFile();
+                JSONObject musicEntry = new JSONObject();
+                musicEntry.put("name", music.getName());
+                musicEntry.put("path", fileName(music, fsPath));
+                musicJson.add(musicEntry);
+            });
+            return musicJson;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
