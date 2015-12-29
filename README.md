@@ -16,3 +16,7 @@ java -jar target/MID_Project-1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
 
 then the server can be reached from localhost:4567.
+
+The music search-feature (localhost:4567/music/search.html) needs internet connection, because
+third-party JavaScript-libraries (React, JQuery etc) are fetched from external CDN instead of serving
+them from the server.
