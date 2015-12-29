@@ -37,9 +37,24 @@ var SongRow = React.createClass({
 });
 
 var MusicTable = React.createClass({
+    getInitialState: function() {
+        return {
+            music: []
+        };
+    },
+    componentDidMount: function() {
+        $.get(this.props.source, function(result) {
+            var json = JSON.parse(result);
+            if(this.isMounted()) {
+                this.setState({
+                    music: json
+                });
+            }
+        }.bind(this));
+    },
     render: function() {
         var rows = [];
-        this.props.music.forEach(function(song) {
+        this.state.music.forEach(function(song) {
             if(song.name.indexOf(this.props.filterText) === -1) {
                 return;
             }
@@ -94,20 +109,17 @@ var FilterableMusicTable = React.createClass({
                     onUserInput={this.handleUserInput}
                 />
                 <MusicTable
-                    music={this.props.music}
                     filterText={this.state.filterText}
+                    source={this.props.source}
                 />
             </div>
         );
     }
 });
 
-var MUSIC = [
-    {name: 'Singing-birds.mp3', path: 'Singing-birds.mp3'},
-    {path: "muulikansio/Eurasian-collared-dove.mp3", name: "Eurasian-collared-dove.mp3"}
-];
+var API_SOURCE = "http://localhost:4567/fileview/music";
 
 ReactDOM.render(
-    <FilterableMusicTable music={MUSIC}/>,
+    <FilterableMusicTable source={API_SOURCE} />,
     document.getElementById('container')
 );
