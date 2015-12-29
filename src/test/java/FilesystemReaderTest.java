@@ -30,6 +30,6 @@ public class FilesystemReaderTest {
         List<String> filetypes = new ArrayList<>();
         filetypes.add(".mp3");
         JSONArray allMusic = fsR.getAllMusic(filetypes);
-        System.out.println(allMusic);
+        Assert.assertNotNull(allMusic);
     }
 }
