@@ -2,7 +2,7 @@
 ## First meeting
 
 In order to desing our application, we have decided to use Java as programming language, and GitHub and Trello
-to share our thoughts. 
+to share our thoughts.
 
 Trying to decide how to implement our project, we first came up with the idea of having a master node, where to
 upload our files and share what we wanted. It would be the manager among the computers, taking each user's files
@@ -38,15 +38,15 @@ To achieve this, we add the following tasks to the TODO list:
 
 ## Third meeting
 
-- The JSON description of a file system is already implemented, 
+- The JSON description of a file system is already implemented,
 file changes are already detected inside a directory, taking
 also into account the subfolders that may exist inside of it
 (i.e. the algorithm is recursive).
 - Now starting with the exchange of files between folders. Firstly
 trying to do it locally, with both directories in the same computer.
 - Decided to keep always the newest file in case of conflict.
-- A client and a server have been created using RMI, but we have 
-problems with the interconection among computers. Able to do 
+- A client and a server have been created using RMI, but we have
+problems with the interconection among computers. Able to do
 it between MACs but unable with Linux.
 
 ## Fourth meeting
@@ -122,6 +122,18 @@ We also decided to change when the web application sends reports
 to the filesystem node: Instead of waiting until the user commits a
 list of changes, as initially conceived, changes will be sent to the
 filesystem node as they are done.
+
+## Seventh meeting
+
+We implemented Spark web server that serves information about filesystem for the web client and applies the changes made from the browser. After that we reliazed that we do not need two servers; one Spark/Jetty implementation could read the data from filesystem and serve the HTML/JavaScript for the server.
+
+Thymeleaf-templating library helped us to handle JSP rendering.
+
+## Diaspora development
+
+After christmas we continued developing in our homes.
+For playing music files, we created extra routes on server that sniffs all music files on filesystem. That implementation is not the most efficient, if there are lots of files in the system. It could be improved by keeping track of the locations of music files in some data structure. That data structure could be updated every time the filesystem changes.    Music songs are showed in the browser by JavaScript front-end made with React.js library.
+
 ## Notes
 - Do not send huge files all at once. Divide it in little chunks of
 data. To be implemented, as RMI does not provide it.
@@ -134,5 +146,3 @@ then you can 1) have events from your file system (your own machine) and 2) comm
 application which listening to the network and the file system.
 if you change in your own machine, everyone has a copy and it gets modified in all the computers.
 coordinate the machines in order to not send the same file several times to a computer.
-
-
