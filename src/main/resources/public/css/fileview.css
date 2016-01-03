@@ -1,0 +1,19 @@
+
+body {
+    padding-left:5em;
+    margin-left:5em;
+    background-color: lightblue;
+}
+
+button, a {
+    padding-left:2em;
+    margin-left:2em;
+}
+
+div.inline {
+    display:inline;
+}
+
+.clearBoth {
+    clear:both;
+}

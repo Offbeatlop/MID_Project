@@ -1,3 +1,6 @@
 .idea/
 MID_Project.iml
 target
+src/main/resources/filesystem/*
+.classpath
+.project
