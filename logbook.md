@@ -1,5 +1,13 @@
-# Logbook
-## First meeting
+---
+title: LogBook
+author:
+- Samu Tamminen
+- Paloma López
+- Ryan McDyer
+- Diego Salmerón
+---
+
+# First meeting
 
 In order to desing our application, we have decided to use Java as programming language, and GitHub and Trello
 to share our thoughts.
@@ -11,7 +19,7 @@ and merging them in a common filesystem, then replicating it to every user's loc
 After discussing it with the professor, we changed this vision for a decentralized system, where peers directly
 interchange the files.
 
-## Second meeting
+# Second meeting
 
 We had agreed that all machines would act as peers. This carries the
 problem of synchronizing all files at the same time without a central
@@ -36,7 +44,7 @@ To achieve this, we add the following tasks to the TODO list:
   network with the RPC/RMI middleware.
 
 
-## Third meeting
+# Third meeting
 
 - The JSON description of a file system is already implemented,
 file changes are already detected inside a directory, taking
@@ -49,7 +57,7 @@ trying to do it locally, with both directories in the same computer.
 problems with the interconection among computers. Able to do
 it between MACs but unable with Linux.
 
-## Fourth meeting
+# Fourth meeting
 
 We still have problems with the communication among machines. In order
 to avoid losing time on that aspect, we started focusing on the web
@@ -61,7 +69,7 @@ interface functionality. We have, then, three parallel working groups:
   through RMI.
 - The last one working on the web interface.
 
-### Web interface development
+# Web interface development
 
 Here we will specify our first approach to the web interface
 functionality:
@@ -78,7 +86,7 @@ the user will make changes through the interface and commit those
 changes if he wish. Finally, the node will start a new convergence
 process to store those changes on the shared filesystem.
 
-## Fifth meeting
+# Fifth meeting
 
 The approach we took to the web interface in the last meeting was not
 the one required.
@@ -88,7 +96,7 @@ nodes and communicate between them over the network.
 
 For this communication we are going to use the Spark framework.
 
-### Web interface development
+## Web interface development
 
 We decided to use Java servlets and JSP as the technologies for
 implementing the web application and Tomcat 8 as the servlet
@@ -105,7 +113,7 @@ its local folder. The rest of peers, which are watching the others'
 shared folders, will initiate the convergence mechanism when the
 changes are detected.
 
-## Sixth meeting
+# Sixth meeting
 
 In this session we came up with a problem our previous approach
 had: The JSON describing the files would be a problem when dealing
@@ -123,26 +131,13 @@ to the filesystem node: Instead of waiting until the user commits a
 list of changes, as initially conceived, changes will be sent to the
 filesystem node as they are done.
 
-## Seventh meeting
+# Seventh meeting
 
 We implemented Spark web server that serves information about filesystem for the web client and applies the changes made from the browser. After that we reliazed that we do not need two servers; one Spark/Jetty implementation could read the data from filesystem and serve the HTML/JavaScript for the server.
 
 Thymeleaf-templating library helped us to handle JSP rendering.
 
-## Diaspora development
+# Diaspora development
 
 After christmas we continued developing in our homes.
 For playing music files, we created extra routes on server that sniffs all music files on filesystem. That implementation is not the most efficient, if there are lots of files in the system. It could be improved by keeping track of the locations of music files in some data structure. That data structure could be updated every time the filesystem changes.    Music songs are showed in the browser by JavaScript front-end made with React.js library.
-
-## Notes
-- Do not send huge files all at once. Divide it in little chunks of
-data. To be implemented, as RMI does not provide it.
-- Protocol definition: not flooding the network with the same file
-being sent from several machines, have a version control.
-- network side, file system
-- run the application to discover who our neigbour machines would be on the network (peers).
-then you can 1) have events from your file system (your own machine) and 2) communicate with the other computers
-(events you receive from the network) here's a new file, take the path... and you copy it to your computer
-application which listening to the network and the file system.
-if you change in your own machine, everyone has a copy and it gets modified in all the computers.
-coordinate the machines in order to not send the same file several times to a computer.
